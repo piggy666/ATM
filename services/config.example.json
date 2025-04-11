@@ -1,0 +1,44 @@
+{
+    "network_mode": "testnet",
+    "auto_approve": true,
+    "ports": {
+      "config_service": 52100,
+      "signal_listener": 52110,
+      "risk_controller": 52120,
+      "dex_executor": 52130,
+      "execution_monitor": 52140,
+      "asset_manager": 52150
+    },
+    "testnet": {
+      "chain_id": 5,
+      "rpc_url": "https://goerli.infura.io/v3/YOUR_INFURA_KEY",
+      "router_address": "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D"
+    },
+    "mainnet": {
+      "chain_id": 1,
+      "rpc_url": "https://mainnet.infura.io/v3/YOUR_INFURA_KEY",
+      "router_address": "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D"
+    },
+    "wallet": {
+      "address": "YOUR_WALLET_ADDRESS",
+      "private_key": "YOUR_WALLET_PRIVATE_KEY"
+    },
+    "token_addresses": {
+      "ETH": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+      "WETH": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+      "USDT": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+      "USDC": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      "WBTC": "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
+      "DAI": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+      "LINK": "0x514910771AF9Ca656af840dff83E8264EcF986CA",
+      "UNI": "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984"
+    },
+    "testnet_token_addresses": {
+      "ETH": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+      "WETH": "0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6",
+      "USDT": "0x509Ee0d083DdF8AC028f2a56731412edD63223B9",
+      "USDC": "0x07865c6E87B9F70255377e024ace6630C1Eaa37F",
+      "WBTC": "0xC04B0d3107736C32e19F1c62b2aF67BE61d63a05",
+      "DAI": "0x73967c6a0904aA032C103b4104747E88c566B1A2"
+    }
+  }
