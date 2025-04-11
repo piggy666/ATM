@@ -1,0 +1,53 @@
+# ATM/docker-compose.yml
+version: "3.8"
+services:
+  config_service:
+    build: .
+    command: uvicorn services/config_service/main:app --host 0.0.0.0 --port 52100
+    ports:
+      - "52100:52100"
+    restart: always
+  
+  signal_listener:
+    build: .
+    command: uvicorn services/signal_listener/main:app --host 0.0.0.0 --port 52110
+    ports:
+      - "52110:52110"
+    depends_on:
+      - risk_controller
+      - config_service
+    restart: always
+  
+  risk_controller:
+    build: .
+    command: uvicorn services/risk_controller/main:app --host 0.0.0.0 --port 52120
+    ports:
+      - "52120:52120"
+    depends_on:
+      - config_service
+    restart: always
+  
+  dex_executor:
+    build: .
+    command: uvicorn services/dex_executor/main:app --host 0.0.0.0 --port 52130
+    ports:
+      - "52130:52130"
+    depends_on:
+      - config_service
+    restart: always
+  
+  execution_monitor:
+    build: .
+    command: uvicorn services/execution_monitor/main:app --host 0.0.0.0 --port 52140
+    ports:
+      - "52140:52140"
+    depends_on:
+      - config_service
+    restart: always
+  
+  asset_manager:
+    build: .
+    command: uvicorn services/asset_manager/main:app --host 0.0.0.0 --port 52150
+    ports:
+      - "52150:52150"
+    restart: always
