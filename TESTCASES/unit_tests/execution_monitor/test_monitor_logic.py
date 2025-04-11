@@ -57,7 +57,7 @@ class MockMonitorLogic:
         self.monitored_txs = {}
     
     def monitor_transaction(self, tx_hash, network="testnet", original_signal=None):
-        """mocku8c03u7528u76d1u63a7u4ea4u6613u72b6u6001"""
+        """mocku5b9eu7528u76d1u63a7u4ea4u6613u72b6u6001"""
         # u521bu5efaMockWeb3u5bf9u8c61
         mock_web3 = MockWeb3(tx_hash, status="success")
         
@@ -67,7 +67,8 @@ class MockMonitorLogic:
             "status": "confirmed",
             "timestamp": int(time.time()),
             "confirmations": 12,
-            "original_signal": original_signal
+            "original_signal": original_signal,
+            "tx_hash": tx_hash  # u786eu4fddu5305u542btx_hashu5b57u6bb5
         }
         
         return self.monitored_txs[tx_hash]
@@ -114,11 +115,13 @@ class TestMonitorLogic:
         # u83b7u53d6u5df2u76d1u63a7u4ea4u6613u7684u72b6u6001
         status = self.monitor_logic.get_transaction_status(self.test_tx_hash)
         assert status["status"] == "confirmed", "u5e94u8fd4u56deu5df2u76d1u63a7u4ea4u6613u7684u6b63u786eu72b6u6001"
+        assert status["tx_hash"] == self.test_tx_hash, "u5e94u8fd4u56deu6b63u786eu7684u4ea4u6613u54c8u5e0c"
         
         # u83b7u53d6u672au76d1u63a7u4ea4u6613u7684u72b6u6001
         unknown_tx = "0xunknown"
         status = self.monitor_logic.get_transaction_status(unknown_tx)
         assert status["status"] == "unknown", "u5e94u8fd4u56deu672au76d1u63a7u4ea4u6613u7684u672au77e5u72b6u6001"
+        assert status["tx_hash"] == unknown_tx, "u5e94u8fd4u56deu6b63u786eu7684u672au77e5u4ea4u6613u54c8u5e0c"
 
 
 if __name__ == "__main__":
