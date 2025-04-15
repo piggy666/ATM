@@ -1,7 +1,0 @@
-fastapi
-uvicorn
-httpx
-web3
-eth-account
-python-dotenv
-python-magic
