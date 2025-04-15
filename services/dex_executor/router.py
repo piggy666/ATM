@@ -1,6 +1,11 @@
 # ATM/services/dex_executor/router.py
 from fastapi import APIRouter
-from logic import dex_logic
+# 同时支持Docker环境和本地环境的导入
+try:
+    from services.dex_executor.logic import dex_logic
+except ImportError:
+    # 本地环境回退使用相对导入
+    from .logic import dex_logic
 
 router = APIRouter()
 
@@ -11,3 +16,8 @@ def execute_trade(trade: dict):
         return {"status": "submitted", "tx_hash": tx_hash}
     except Exception as e:
         return {"error": str(e)}
+
+@router.get("/dex/status")
+def get_dex_status():
+    # 返回服务状态信息
+    return {"status": "running", "service": "dex_executor"}

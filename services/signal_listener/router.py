@@ -1,6 +1,11 @@
 # ATM/services/signal_listener/router.py
 from fastapi import APIRouter
-from logic import signal_logic
+# 同时支持Docker环境和本地环境的导入
+try:
+    from services.signal_listener.logic import signal_logic
+except ImportError:
+    # 本地环境回退使用相对导入
+    from .logic import signal_logic
 
 router = APIRouter()
 

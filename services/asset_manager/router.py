@@ -1,34 +1,49 @@
 # ATM/services/asset_manager/router.py
 from fastapi import APIRouter, HTTPException
-from logic.asset_manager_logic import list_accounts, create_account, get_balance, transfer, switch_account
+# 在Docker环境中使用绝对导入
+try:
+    from services.asset_manager.logic.asset_manager_logic import list_accounts, create_account, get_balance, transfer, switch_account
+except ImportError:
+    # 在本地开发环境中回退使用相对导入
+    from .logic.asset_manager_logic import list_accounts, create_account, get_balance, transfer, switch_account
 
 router = APIRouter()
 
-@router.get("/accounts")
+@router.get("/asset/accounts")
 def api_list_accounts():
-    return {"accounts": list_accounts()}
+    accounts = list_accounts()
+    return {"accounts": accounts}
 
-@router.post("/accounts")
+@router.post("/asset/accounts")
 def api_create_account():
     address = create_account()
     return {"address": address}
 
-@router.get("/accounts/{address}/balance")
+@router.get("/asset/balance/{address}")
 def api_get_balance(address: str, token_address: str = None):
-    balance = get_balance(address, token_address)
-    if balance is None:
-        raise HTTPException(status_code=404, detail="Account not found")
-    return {"address": address, "balance": str(balance), "token": token_address or "native"}
+    try:
+        balance = get_balance(address, token_address)
+        return {"address": address, "balance": balance, "token": token_address or "ETH"}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
 
-@router.post("/accounts/{address}/transfer")
+@router.post("/asset/transfer")
 def api_transfer(address: str, to_address: str, amount: float, token_address: str = None):
-    tx_hash = transfer(address, to_address, amount, token_address)
-    if tx_hash is None:
-        raise HTTPException(status_code=400, detail="Transfer failed")
-    return {"from": address, "to": to_address, "amount": amount, "token": token_address or "native", "tx_hash": tx_hash}
+    try:
+        tx_hash = transfer(address, to_address, amount, token_address)
+        return {"tx_hash": tx_hash, "status": "success"}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
 
-@router.post("/accounts/{address}/switch")
+@router.post("/asset/switch/{address}")
 def api_switch_account(address: str):
-    if switch_account(address):
-        return {"active_account": address}
-    raise HTTPException(status_code=404, detail="Account not found")
+    try:
+        switch_account(address)
+        return {"status": "success", "active_account": address}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@router.get("/asset/status")
+def get_asset_status():
+    """返回服务状态信息"""
+    return {"status": "running", "service": "asset_manager"}

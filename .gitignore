@@ -9,3 +9,7 @@ env/
 .DS_Store
 services/config.json
 config.json
+
+# Temporary fix scripts
+fix_*.py
+add_*.py
