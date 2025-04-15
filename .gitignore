@@ -10,7 +10,35 @@ env/
 services/config.json
 config.json
 
+# IDE相关文件
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# 构建和分发相关
+dist/
+build/
+*.egg-info/
+
+# 测试相关
+.coverage
+htmlcov/
+.pytest_cache/
+
+# 临时文件
+*.tmp
+*.swp
+*~
+
 # Temporary fix scripts
 fix_*.py
 add_*.py
 *.bak
+
+# 敏感数据
+*_key.txt
+*_secret.txt
+*_private.pem
+.env.local
+.env.production
