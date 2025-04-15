@@ -10,8 +10,8 @@
       "asset_manager": 52150
     },
     "testnet": {
-      "chain_id": 5,
-      "rpc_url": "https://goerli.infura.io/v3/YOUR_INFURA_KEY",
+      "chain_id": 11155111,
+      "rpc_url": "https://sepolia.infura.io/v3/YOUR_INFURA_KEY",
       "router_address": "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D"
     },
     "mainnet": {
